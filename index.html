@@ -3,6 +3,10 @@
 <head>
   <meta charset="utf-8">
   <title>404 – nieznany link</title>
+
+  <!-- Google reCAPTCHA -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
   <style>
     body {
       margin:0;
@@ -70,10 +74,16 @@
     }
   </style>
 </head>
+
 <body>
   <section>
     <h1>404</h1>
     <h3>nieznany link</h3>
+
+    <!-- reCAPTCHA z Twoim kluczem -->
+    <div class="g-recaptcha" data-sitekey="6LftMR0tAAAAAG5S3YdF1VnIn-zRDyoSI34yr1Xh"></div>
+
+    <br>
 
     <button class="btn"
       onclick="window.location.href='mailto:anteczex@gmail.com?subject=Siema&body=To%20jest%20wiadomosc';">
@@ -86,7 +96,7 @@
   </section>
 
   <script>
-    // po 10 sekundach pokaż guzik z miękkim fade-in
+    // po 10 sekundach pokaż guzik
     setTimeout(() => {
       const btn = document.getElementById("startBtn");
       btn.style.display = "inline-block";
