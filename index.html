@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>AntekFun</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: #0d0d12;
+        color: #fff;
+    }
+
+    header {
+        text-align: center;
+        padding: 40px 10px 20px;
+    }
+
+    h1 {
+        font-size: 42px;
+        letter-spacing: 0.1em;
+        margin-bottom: 6px;
+    }
+
+    .subtitle {
+        color: #9aa0b8;
+        font-size: 14px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+        padding: 20px;
+        max-width: 1100px;
+        margin: auto;
+    }
+
+    .tile {
+        background: #16161d;
+        border: 1px solid #2a2a33;
+        padding: 20px;
+        border-radius: 14px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .tile:hover {
+        transform: translateY(-4px);
+        background: #1d1d26;
+        border-color: #00e5ff;
+    }
+
+    .tile h2 {
+        margin: 0 0 8px;
+        font-size: 20px;
+    }
+
+    .tile p {
+        margin: 0;
+        color: #9aa0b8;
+        font-size: 14px;
+    }
+
+    .modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.75);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .modal-content {
+        background: #16161d;
+        border: 1px solid #2a2a33;
+        padding: 20px;
+        border-radius: 14px;
+        max-width: 500px;
+        width: 100%;
+    }
+
+    .close {
+        float: right;
+        cursor: pointer;
+        font-size: 20px;
+        color: #aaa;
+    }
+
+    .close:hover {
+        color: #fff;
+    }
+
+    button {
+        padding: 8px 14px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        background: #00e5ff;
+        color: #000;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 8px;
+        border-radius: 8px;
+        border: 1px solid #333;
+        background: #0d0d12;
+        color: #fff;
+        margin-top: 6px;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>ANTEKFUN</h1>
+    <div class="subtitle">Strona w stylu Neal.fun, ale po Twojemu</div>
+</header>
+
+<div class="grid">
+
+    <div class="tile" onclick="openModal('randomText')">
+        <h2>Generator tekstów</h2>
+        <p>Losowe komunikaty w stylu Antek-core.</p>
+    </div>
+
+    <div class="tile" onclick="openModal('clicker')">
+        <h2>Antek Clicker</h2>
+        <p>Najprostsza gra świata.</p>
+    </div>
+
+    <div class="tile" onclick="openModal('counter')">
+        <h2>Licznik energii</h2>
+        <p>Zwiększaj lub zmniejszaj poziom.</p>
+    </div>
+
+    <div class="tile" onclick="openModal('notes')">
+        <h2>Notatnik</h2>
+        <p>Zapisuje się automatycznie.</p>
+    </div>
+
+    <div class="tile" onclick="openModal('terminal')">
+        <h2>Terminal</h2>
+        <p>Mini powłoka z komendami.</p>
+    </div>
+
+</div>
+
+<!-- MODAL: RANDOM TEXT -->
+<div class="modal" id="randomText">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('randomText')">&times;</span>
+        <h2>Generator tekstów</h2>
+        <p id="randomOutput" style="margin-top:10px; color:#00e5ff;"></p>
+        <button onclick="generateText()">Generuj</button>
+    </div>
+</div>
+
+<!-- MODAL: CLICKER -->
+<div class="modal" id="clicker">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('clicker')">&times;</span>
+        <h2>Antek Clicker</h2>
+        <p>Wynik:</p>
+        <p id="clickerScore" style="font-size:24px; color:#00e5ff;">0</p>
+        <button onclick="clickerScore++ ; updateClicker()">Kliknij</button>
+    </div>
+</div>
+
+<!-- MODAL: COUNTER -->
+<div class="modal" id="counter">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('counter')">&times;</span>
+        <h2>Licznik energii</h2>
+        <p id="counterValue" style="font-size:24px; color:#00e5ff;">0</p>
+        <button onclick="counterValue++ ; updateCounter()">+</button>
+        <button onclick="counterValue-- ; updateCounter()">-</button>
+    </div>
+</div>
+
+<!-- MODAL: NOTES -->
+<div class="modal" id="notes">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('notes')">&times;</span>
+        <h2>Notatnik</h2>
+        <textarea id="notesArea" placeholder="Twoje notatki..."></textarea>
+    </div>
+</div>
+
+<!-- MODAL: TERMINAL -->
+<div class="modal" id="terminal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('terminal')">&times;</span>
+        <h2>Terminal</h2>
+        <div id="termOutput" style="height:150px; overflow-y:auto; background:#0d0d12; padding:8px; border-radius:8px; border:1px solid #333;"></div>
+        <input id="termInput" placeholder="Wpisz komendę...">
+        <button onclick="runCommand()">Wykonaj</button>
+    </div>
+</div>
+
+<script>
+function openModal(id) {
+    document.getElementById(id).style.display = "flex";
+}
+
+function closeModal(id) {
+    document.getElementById(id).style.display = "none";
+}
+
+/* RANDOM TEXT */
+const texts = [
+    "System: poziom energii przekroczony.",
+    "Log: wykonano operację bez testów.",
+    "Alert: wykryto nadmiar kreatywności.",
+    "Status: 200 OK, ale mentalnie 404.",
+    "Kernel: brak paniki, tylko chaos.",
+    "Proces zakończony sukcesem."
+];
+
+function generateText() {
+    const t = texts[Math.floor(Math.random() * texts.length)];
+    document.getElementById("randomOutput").textContent = t;
+}
+
+/* CLICKER */
+let clickerScore = 0;
+function updateClicker() {
+    document.getElementById("clickerScore").textContent = clickerScore;
+}
+
+/* COUNTER */
+let counterValue = 0;
+function updateCounter() {
+    document.getElementById("counterValue").textContent = counterValue;
+}
+
+/* NOTES */
+const notesArea = document.getElementById("notesArea");
+notesArea.value = localStorage.getItem("antekfun-notes") || "";
+notesArea.addEventListener("input", () => {
+    localStorage.setItem("antekfun-notes", notesArea.value);
+});
+
+/* TERMINAL */
+function termPrint(text) {
+    const out = document.getElementById("termOutput");
+    const line = document.createElement("div");
+    line.textContent = text;
+    out.appendChild(line);
+    out.scrollTop = out.scrollHeight;
+}
+
+function runCommand() {
+    const input = document.getElementById("termInput");
+    const cmd = input.value.trim();
+    input.value = "";
+
+    if (!cmd) return;
+
+    termPrint("> " + cmd);
+
+    if (cmd === "help") {
+        termPrint("Dostępne komendy: help, about, clear, time, echo <tekst>");
+    } else if (cmd === "about") {
+        termPrint("AntekFun — mini strona w stylu Neal.fun.");
+    } else if (cmd === "clear") {
+        document.getElementById("termOutput").innerHTML = "";
+    } else if (cmd === "time") {
+        termPrint(new Date().toString());
+    } else if (cmd.startsWith("echo ")) {
+        termPrint(cmd.slice(5));
+    } else {
+        termPrint("Nieznana komenda.");
+    }
+}
+</script>
+
+</body>
+</html>
