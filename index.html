@@ -1,16 +1,6 @@
 <!doctype HTML>
 <html>
     <body>
-        <script>
-let c = 0;
-document.addEventListener("click", () => {
-    c++;
-    if (c >= 5) {
-        window.location.href = "link";
-    }
-        
-});
-        </script>
         <section>
             <h1>404</h1>
             <h3>nieznany link</h3>
@@ -29,6 +19,34 @@ box-shadow:0 4px 12px rgba(0,0,0,.2);
 transition:.2s;
 ">
 kontakt
+                <button id="startBtn" style="
+    display:none;
+    padding:14px 28px;
+    font-size:20px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#4f46e5,#7c3aed);
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+">
+  Zacznij zabawę
+</button>
+
+<script>
+// po 10 sekundach pokaż guzik
+setTimeout(() => {
+    const btn = document.getElementById("startBtn");
+    btn.style.display = "block";
+    btn.style.opacity = "0";
+    setTimeout(() => btn.style.opacity = "1", 50);
+}, 10000);
+
+// klik → YouTube
+document.getElementById("startBtn").onclick = () => {
+    window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+};
+</script>
             </button>
         </section>
     </body>
