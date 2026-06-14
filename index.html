@@ -3,75 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>404 – nieznany link</title>
-
-  <!-- Google reCAPTCHA -->
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-  <style>
-    body {
-      margin:0;
-      height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      background:radial-gradient(circle at top,#1f2937,#020617);
-      font-family:system-ui, sans-serif;
-      color:white;
-    }
-
-    section {
-      text-align:center;
-      animation: fadeIn 1s ease-out;
-    }
-
-    h1 {
-      font-size:80px;
-      margin:0;
-      letter-spacing:8px;
-      animation: float 3s ease-in-out infinite;
-    }
-
-    h3 {
-      margin:10px 0 30px;
-      font-weight:400;
-      opacity:.8;
-    }
-
-    .btn {
-      background:linear-gradient(135deg,#4f46e5,#7c3aed);
-      color:white;
-      border:none;
-      padding:12px 24px;
-      font-size:18px;
-      border-radius:12px;
-      cursor:pointer;
-      box-shadow:0 4px 12px rgba(0,0,0,.4);
-      transition:transform .2s, box-shadow .2s, filter .2s;
-      margin:6px;
-    }
-
-    .btn:hover {
-      transform:translateY(-2px);
-      box-shadow:0 8px 18px rgba(0,0,0,.6);
-      filter:brightness(1.1);
-    }
-
-    #startBtn {
-      display:none;
-      opacity:0;
-      transition:opacity .6s;
-    }
-
-    @keyframes fadeIn {
-      from { opacity:0; transform:translateY(10px); }
-      to   { opacity:1; transform:translateY(0); }
-    }
-
-    @keyframes float {
-      0%   { transform:translateY(0); }
-      50%  { transform:translateY(-10px); }
-      100% { transform:translateY(0); }
-    }
+   <style></style>
   </style>
 </head>
 
@@ -79,11 +11,6 @@
   <section>
     <h1>404</h1>
     <h3>nieznany link</h3>
-
-    <!-- reCAPTCHA z Twoim kluczem -->
-    <div class="g-recaptcha" data-sitekey="6LftMR0tAAAAAG5S3YdF1VnIn-zRDyoSI34yr1Xh"></div>
-
-    <br>
 
     <button class="btn"
       onclick="window.location.href='mailto:anteczex@gmail.com?subject=Siema&body=To%20jest%20wiadomosc';">
