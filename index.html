@@ -3,7 +3,37 @@
 <head>
   <meta charset="utf-8">
   <title>404 – nieznany link</title>
-   <style></style>
+
+  <style>
+    body{
+      font-family:Arial, sans-serif;
+      text-align:center;
+      padding-top:80px;
+    }
+
+    #startBtn{
+      padding:18px 40px;
+      font-size:20px;
+      font-weight:700;
+      color:white;
+      background:linear-gradient(135deg,#2563eb,#7c3aed);
+      border:none;
+      border-radius:16px;
+      cursor:pointer;
+      box-shadow:0 10px 25px rgba(37,99,235,.35);
+      transition:all .25s ease, opacity .5s ease;
+      opacity:0;          /* ← ukryty na start */
+      display:none;       /* ← nie klika się przed czasem */
+    }
+
+    #startBtn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 15px 35px rgba(37,99,235,.45);
+    }
+
+    #startBtn:active{
+      transform:scale(.97);
+    }
   </style>
 </head>
 
@@ -27,8 +57,9 @@
     setTimeout(() => {
       const btn = document.getElementById("startBtn");
       btn.style.display = "inline-block";
+
       requestAnimationFrame(() => {
-        btn.style.opacity = "1";
+        btn.style.opacity = "1";   // płynne pojawienie
       });
     }, 10000);
 
