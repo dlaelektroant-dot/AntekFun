@@ -3,28 +3,59 @@
 <head>
 <style>
 body {
-    background-image: url("cegly.png");
     background-size: 300px;
     background-repeat: repeat;
 }
-
 </style>
 </head>
 <body>
 
 <h1 style="color:white;">Antek fun</h1>
 <nav>bimbimbambam</nav>
-    <section>
-        <button onclick="window.location.href='https://www.youtube.com/watch?v=dQw4w9WgXcQ';"
-style="background:#3498db; color:white; padding:40px 60px; border:none; border-radius:10px; display:flex; align-items:center; gap:12px; cursor:pointer; font-size:18px;">
-  <img src="ico1.png" style="width:32px; height:32px;">
-  <span>rickroll</span>
-        <button onclick="window.location.href='https://antoszkagejmingg.github.io/antekfun-game1/';"
-style="background:#ff6ef5; color:white; padding:40px 60px; border:none; border-radius:10px; display:flex; align-items:center; gap:12px; cursor:pointer; font-size:18px;">
-  <img src="ico2.png" style="width:32px; height:32px;">
-  <span>snake</span>
-        </button>
-        
+
+<section>
+    <button onclick="window.location.href='https://www.youtube.com/watch?v=dQw4w9WgXcQ';"
+    style="background:#3498db; color:white; padding:40px 60px; border:none; border-radius:10px; display:flex; align-items:center; gap:12px; cursor:pointer; font-size:18px;">
+        <img src="ico1.png" style="width:32px; height:32px;">
+        <span>rickroll</span>
+    </button>
+
+    <button onclick="window.location.href='https://antoszkagejmingg.github.io/antekfun-game1/';"
+    style="background:#ff6ef5; color:white; padding:40px 60px; border:none; border-radius:10px; display:flex; align-items:center; gap:12px; cursor:pointer; font-size:18px;">
+        <img src="ico2.png" style="width:32px; height:32px;">
+        <span>snake</span>
+    </button>
+</section>
+
+<hr style="margin-top:40px; opacity:0.3;">
+
+<h3 style="color:white;">Ustaw własne tło:</h3>
+<input id="bgLink" type="text" placeholder="Wklej link do obrazka" style="width:300px;">
+<button onclick="zapiszTlo()">Zapisz</button>
+<button onclick="resetTlo()">Reset do cegieł</button>
+
+<script>
+    const defaultBg = "cegly.png";
+
+    // ŁADOWANIE PRZY STARCIU
+    const saved = localStorage.getItem("tloAntekFun");
+    document.body.style.backgroundImage = `url('${saved ? saved : defaultBg}')`;
+
+    // ZAPISYWANIE NOWEGO TŁA
+    function zapiszTlo() {
+        const url = document.getElementById("bgLink").value.trim();
+        if(url !== "") {
+            localStorage.setItem("tloAntekFun", url);
+            document.body.style.backgroundImage = `url('${url}')`;
+        }
+    }
+
+    // RESET DO DOMYŚLNEGO
+    function resetTlo() {
+        localStorage.removeItem("tloAntekFun");
+        document.body.style.backgroundImage = `url('${defaultBg}')`;
+    }
+</script>
+
 </body>
-        </html>
-          
+</html>
